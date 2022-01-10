@@ -1,7 +1,13 @@
-from dbops.connection import db_connection
+from dbops.deduplications import DeduplicateBases
 
-conn = db_connection()
-cursor = conn.cursor()
+deduplications_config = {
+    'list_base_names' : [
+    't_affluent_recovery_aff_black_20211229',
+    't_affluent_recovery_aff_platinum_20211229',
+    't_maste0140_dbm041_interesse_mass_20210610',
+    't_maste0140_dbm042_regional_affluent_20210710'
+    ]
+}
 
-cursor.execute('SELECT customer_id FROM dw.d_customer LIMIT 1;')
-print(cursor.fetchone())
+
+DeduplicateBases(deduplications_config)
