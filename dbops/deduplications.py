@@ -5,7 +5,10 @@ cursor = conn.cursor()
 
 list_base_names_in_stage = [
     't_affluent_recovery_aff_black_20211229',
-    't_affluent_recovery_aff_platinum_20211229'
+    't_affluent_recovery_aff_platinum_20211229',
+    't_maste0140_dbm041_interesse_mass_20210610',
+    't_maste0140_dbm042_regional_affluent_20210710'
+
     ]
 
 def get_list_bases_sorted(list_base_names: list):
