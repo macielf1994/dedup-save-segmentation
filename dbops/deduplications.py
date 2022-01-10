@@ -30,6 +30,12 @@ def deduplicate_between_bases(dict_sorted_bases: dict):
             if base_in_deduplication[0] != base_for_deduplicate[0]:
                 query_deduplicate = f"""delete from stg.{base_in_deduplication[0]} where customer_id in (select customer_id from stg.{base_for_deduplicate[0]};"""
                 print(query_deduplicate)
-        
 
+def self_deduplicate_values(list_base_names: list):
+    for base in list_base_names:
+        self_deduplicate_query = f"""delete from stg.{base} dm where exists (select email from stg.{base} ss where dm.email = ss.email and dm.customer_id < ss.customer_id);"""
+        print(self_deduplicate_query)
+
+
+self_deduplicate_values(list_base_names_in_stage)
 deduplicate_between_bases(get_list_bases_sorted(list_base_names_in_stage))
