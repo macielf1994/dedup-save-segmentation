@@ -8,7 +8,7 @@ list_base_names_in_stage = [
     't_affluent_recovery_aff_platinum_20211229'
     ]
 
-def get_list_bases_vol_sorted_in_dict(list_base_names: list):
+def get_list_bases_sorted(list_base_names: list):
     base_names_vol_dict = {}
     for base in list_base_names:
         base_select = f"select count(customer_id) from stg.{base}"
@@ -21,6 +21,12 @@ def get_list_bases_vol_sorted_in_dict(list_base_names: list):
     
     return sort_by_count_vol_bases
 
-dict_bases_and_vol = get_list_bases_vol_sorted_in_dict(list_base_names_in_stage)
+def deduplicate_between_bases(dict_sorted_bases: dict):
+    for base_in_deduplication in dict_sorted_bases:
+        new_list_for_compare = list(dict_sorted_bases)
+        for base_for_deduplicate in new_list_for_compare:
+            if base_in_deduplication[0] != base_for_deduplicate[0]:
+                print(f'{base_in_deduplication[1]} deduplicate {base_for_deduplicate[1]}')
+        
 
-print(dict_bases_and_vol)
+deduplicate_between_bases(get_list_bases_sorted(list_base_names_in_stage))
