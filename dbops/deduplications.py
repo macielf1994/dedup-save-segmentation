@@ -8,7 +8,6 @@ list_base_names_in_stage = [
     't_affluent_recovery_aff_platinum_20211229',
     't_maste0140_dbm041_interesse_mass_20210610',
     't_maste0140_dbm042_regional_affluent_20210710'
-
     ]
 
 def get_list_bases_sorted(list_base_names: list):
@@ -29,7 +28,8 @@ def deduplicate_between_bases(dict_sorted_bases: dict):
         new_list_for_compare = list(dict_sorted_bases)
         for base_for_deduplicate in new_list_for_compare:
             if base_in_deduplication[0] != base_for_deduplicate[0]:
-                print(f'{base_in_deduplication[1]} deduplicate {base_for_deduplicate[1]}')
+                query_deduplicate = f"""delete from stg.{base_in_deduplication[0]} where customer_id in (select customer_id from stg.{base_for_deduplicate[0]};"""
+                print(query_deduplicate)
         
 
 deduplicate_between_bases(get_list_bases_sorted(list_base_names_in_stage))
